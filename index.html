@@ -1,93 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MuxFusion - Under Construction</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #f4f7fc;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    width: 80%;
-    max-width: 600px;
-}
-
-h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    color: #0066ff;
-}
-
-p {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.construction-image img {
-    width: 200px;
-    margin: 20px 0;
-}
-
-.social-icons {
-    margin-top: 20px;
-}
-
-.social-icons a {
-    text-decoration: none;
-    margin: 0 10px;
-    color: #0066ff;
-    font-size: 1.5rem;
-}
-
-.social-icons a:hover {
-    color: #333;
-}
-
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    p {
-        font-size: 1rem;
-    }
-
-    .construction-image img {
-        width: 150px;
-    }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <title>Uniwerse Landing</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <h2>404</h2>
-        </div>
+  <div class="desktop">
+    <div class="center-card">
+      <div class="logo-row"><img src="assets/logo.png" alt="uniwerse" height="56px">
+      </div>
+      <h1 class="headline">Din idé, vårt uniwerse.</h1>
+      <div class="subsection">
+        <div class="subheadline">Uniwersen expanderar… ETA: snart.</div>
+        <button class="contact-btn" id="contactBtn">Kontakta oss</button>
+      </div>
     </div>
+  </div>
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Kontakta oss</h2>
+      <form
+        action="https://formspree.io/f/mnqdolaq"
+        method="POST"
+        id="contactForm"
+      >
+        <label for="name">Namn:
+          <input type="text" id="name" name="name" required placeholder="Ditt namn">
+        </label>
+        <label for="email">Din e-post:
+          <input type="email" id="email" name="email" required placeholder="namn@email.se">
+        </label>
+        <label for="message">Meddelande:
+          <textarea id="message" name="message" required placeholder="Skriv ditt meddelande här..."></textarea>
+        </label>
+        <button type="submit">Skicka</button>
+      </form>
+      <div id="successMessage" class="success-message">Tack för ditt meddelande!</div>
+    </div>
+  </div>
+  <script>
+    const contactBtn = document.getElementById('contactBtn');
+    const modal = document.getElementById('contactModal');
+    const closeModal = document.getElementById('closeModal');
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    contactBtn.onclick = () => { modal.style.display = 'flex'; };
+    closeModal.onclick = () => { modal.style.display = 'none'; };
+    window.onclick = (event) => { if (event.target === modal) modal.style.display = 'none'; };
+    form.onsubmit = async function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.reset();
+          successMessage.textContent = 'Tack för ditt meddelande!';
+          successMessage.style.display = 'block';
+          successMessage.classList.add('show');
+          setTimeout(() => {
+            successMessage.classList.remove('show');
+            successMessage.classList.add('fade');
+            setTimeout(() => {
+              successMessage.style.display = 'none';
+              successMessage.classList.remove('fade');
+              modal.style.display = 'none';
+            }, 600);
+          }, 1800);
+        } else {
+          let msg = 'Något gick fel. Försök igen.';
+          try {
+            const data = await response.json();
+            if (data && data.errors && data.errors.length) {
+              msg = data.errors.map(e => e.message).join(', ');
+            }
+          } catch (err) {}
+          successMessage.textContent = msg;
+          successMessage.style.display = 'block';
+          successMessage.classList.add('show');
+          setTimeout(() => {
+            successMessage.classList.remove('show');
+            successMessage.classList.add('fade');
+            setTimeout(() => {
+              successMessage.style.display = 'none';
+              successMessage.classList.remove('fade');
+            }, 600);
+          }, 2200);
+        }
+      } catch (err) {
+        successMessage.textContent = 'Något gick fel. Försök igen.';
+        successMessage.style.display = 'block';
+        successMessage.classList.add('show');
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+          successMessage.classList.add('fade');
+          setTimeout(() => {
+            successMessage.style.display = 'none';
+            successMessage.classList.remove('fade');
+          }, 600);
+        }, 2200);
+      }
+    };
+  </script>
 </body>
-</html>
+</html> 
