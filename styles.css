@@ -98,44 +98,6 @@ html, body {
   background: #222;
 }
 
-/* Tablet (<=1024px) */
-@media (max-width: 1024px) {
-  .center-card {
-    width: 90vw;
-    height: auto;
-    gap: 120px;
-    padding: 40px 0;
-  }
-  .logo-row {
-    width: 160px;
-    height: 42px;
-  }
-  .logo-icon {
-    width: 42px;
-    height: 42px;
-  }
-  .logo-text {
-    height: 20px;
-  }
-  .headline {
-    font-size: 32px;
-    line-height: 48px;
-  }
-  .subsection {
-    width: 80vw;
-    max-width: 320px;
-  }
-  .subheadline {
-    font-size: 18px;
-    line-height: 28px;
-  }
-  .contact-btn {
-    width: 120px;
-    height: 40px;
-    font-size: 16px;
-  }
-}
-
 
 /* Modal Styles */
 .modal {
