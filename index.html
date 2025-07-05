@@ -43,6 +43,14 @@
     </div>
   </div>
   <script>
+  (function() {
+    var script = document.createElement('script');
+    script.src = 'http://localhost:3000/widget.js?userId=67c8ade9-fe85-4f4d-b44c-ba319ee20d9e';
+    script.async = true;
+    document.head.appendChild(script);
+  })();
+</script>
+  <script>
     const contactBtn = document.getElementById('contactBtn');
     const modal = document.getElementById('contactModal');
     const closeModal = document.getElementById('closeModal');
